@@ -1,0 +1,111 @@
+<section class="card">
+  <div class="header">
+    <h2>Taktyki drużyny</h2>
+    <button (click)="toggleForm()" class="btn-primary">
+      {{ showForm ? 'Zamknij formularz' : '+ Nowa taktyka' }}
+    </button>
+  </div>
+
+  <!-- Formularz -->
+  <div class="form-container" *ngIf="showForm">
+    <div class="form-group">
+      <label>Nazwa taktyki</label>
+      <input type="text" [(ngModel)]="formData.name" placeholder="np. Rush B">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Drużyna</label>
+        <select [(ngModel)]="formData.team">
+          <option value="T">Terrorist (T)</option>
+          <option value="CT">Counter-Terrorist (CT)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Mapa</label>
+        <input type="text" [(ngModel)]="formData.map" placeholder="np. Dust II">
+      </div>
+
+      <div class="form-group">
+        <label>Trudność</label>
+        <select [(ngModel)]="formData.difficulty">
+          <option value="easy">Łatwa</option>
+          <option value="medium">Średnia</option>
+          <option value="hard">Trudna</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Opis</label>
+      <textarea [(ngModel)]="formData.description" placeholder="Opisz taktykę..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Typ rudy (buy)</label>
+        <select [(ngModel)]="formData.buyRound">
+          <option value="eco">Eco (mało kasy)</option>
+          <option value="half-buy">Half-buy (półkupno)</option>
+          <option value="full-buy">Full-buy (pełne kupno)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Notatki</label>
+        <input type="text" [(ngModel)]="formData.notes" placeholder="Dodatkowe uwagi...">
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button (click)="saveTactic()" class="btn-success">
+        {{ editingId ? 'Aktualizuj' : 'Dodaj' }} taktykę
+      </button>
+      <button (click)="toggleForm()" class="btn-secondary">Anuluj</button>
+    </div>
+  </div>
+
+  <!-- Filtr drużyn -->
+  <div class="filter-tabs">
+    <button 
+      *ngFor="let team of ['T', 'CT']" 
+      [class.active]="selectedTeam === team"
+      (click)="selectedTeam = team"
+      class="tab">
+      {{ team === 'T' ? '🔴 Terrorist' : '🟦 Counter-Terrorist' }}
+    </button>
+  </div>
+
+  <!-- Lista taktyk -->
+  <div class="tactics-list">
+    <div *ngIf="getFilteredTactics().length === 0" class="empty-state">
+      <p>Brak taktyk dla wybranej drużyny</p>
+    </div>
+
+    <div *ngFor="let tactic of getFilteredTactics()" class="tactic-card">
+      <div class="tactic-header">
+        <h3>{{ tactic.name }}</h3>
+        <div class="difficulty-badge" [style.backgroundColor]="getDifficultyColor(tactic.difficulty)">
+          {{ tactic.difficulty === 'easy' ? 'Łatwa' : tactic.difficulty === 'medium' ? 'Średnia' : 'Trudna' }}
+        </div>
+      </div>
+
+      <p class="description">{{ tactic.description }}</p>
+
+      <div class="tactic-meta">
+        <span class="meta-item">📍 {{ tactic.map }}</span>
+        <span class="meta-item">💰 {{ tactic.buyRound === 'eco' ? 'Eco' : tactic.buyRound === 'half-buy' ? 'Half-buy' : 'Full-buy' }}</span>
+      </div>
+
+      <div *ngIf="tactic.notes" class="notes">
+        <strong>Notatki:</strong> {{ tactic.notes }}
+      </div>
+
+      <div class="tactic-actions">
+        <button (click)="editTactic(tactic)" class="btn-small btn-edit">✏️ Edytuj</button>
+        <button (click)="deleteTactic(tactic.id)" class="btn-small btn-delete">🗑️ Usuń</button>
+      </div>
+    </div>
+  </div>
+</section>

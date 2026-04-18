@@ -1,0 +1,125 @@
+<section class="card">
+  <div class="header">
+    <h2>Analiza meczowa</h2>
+    <button (click)="toggleForm()" class="btn-primary">
+      {{ showForm ? 'Zamknij formularz' : '+ Nowy mecz' }}
+    </button>
+  </div>
+
+  <!-- Statystyki -->
+  <div class="stats-grid" *ngIf="analysisList.length > 0">
+    <div class="stat-box">
+      <div class="stat-label">Liczba meczów</div>
+      <div class="stat-value">{{ analysisList.length }}</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Win rate</div>
+      <div class="stat-value">{{ getWinRate() }}%</div>
+    </div>
+  </div>
+
+  <!-- Formularz -->
+  <div class="form-container" *ngIf="showForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Data meczu</label>
+        <input type="date" [(ngModel)]="formData.date">
+      </div>
+
+      <div class="form-group">
+        <label>Mapa</label>
+        <input type="text" [(ngModel)]="formData.map" placeholder="np. Dust II">
+      </div>
+
+      <div class="form-group">
+        <label>Przeciwnik</label>
+        <input type="text" [(ngModel)]="formData.opponent" placeholder="Nazwa zespołu">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Rundy T</label>
+        <input type="number" [(ngModel)]="formData.resultT" min="0" max="16">
+      </div>
+
+      <div class="form-group">
+        <label>Rundy CT</label>
+        <input type="number" [(ngModel)]="formData.resultCT" min="0" max="16">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Ekonomia rundy</label>
+      <textarea [(ngModel)]="formData.economy" placeholder="Opis ekonomii..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Utility (granaty)</label>
+      <textarea [(ngModel)]="formData.utility" placeholder="Które granaty były efektywne..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Highlight'y/Dobre momenty</label>
+      <textarea [(ngModel)]="formData.highlights" placeholder="Co poszło dobrze..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Elementy do poprawy</label>
+      <textarea [(ngModel)]="formData.improvements" placeholder="Co można poprawić..."></textarea>
+    </div>
+
+    <div class="button-group">
+      <button (click)="saveAnalysis()" class="btn-success">
+        {{ editingId ? 'Aktualizuj' : 'Dodaj' }} analizę
+      </button>
+      <button (click)="toggleForm()" class="btn-secondary">Anuluj</button>
+    </div>
+  </div>
+
+  <!-- Lista analiz -->
+  <div class="analysis-list">
+    <div *ngIf="analysisList.length === 0" class="empty-state">
+      <p>Brak analiz meczowych. Dodaj nową!</p>
+    </div>
+
+    <div *ngFor="let match of analysisList" [class]="'analysis-card ' + getResultClass(match.resultT, match.resultCT)">
+      <div class="card-header">
+        <div class="match-info">
+          <h3>{{ match.opponent }}</h3>
+          <span class="date">{{ match.date }}</span>
+        </div>
+        <div [class]="'score ' + getResultClass(match.resultT, match.resultCT)">
+          {{ match.resultT }} : {{ match.resultCT }}
+        </div>
+      </div>
+
+      <div class="map-badge">📍 {{ match.map }}</div>
+
+      <div class="analysis-section" *ngIf="match.economy">
+        <strong>Ekonomia:</strong>
+        <p>{{ match.economy }}</p>
+      </div>
+
+      <div class="analysis-section" *ngIf="match.utility">
+        <strong>Utility:</strong>
+        <p>{{ match.utility }}</p>
+      </div>
+
+      <div class="analysis-section" *ngIf="match.highlights">
+        <strong>✅ Dobre punkty:</strong>
+        <p>{{ match.highlights }}</p>
+      </div>
+
+      <div class="analysis-section" *ngIf="match.improvements">
+        <strong>⚠️ Do poprawy:</strong>
+        <p>{{ match.improvements }}</p>
+      </div>
+
+      <div class="card-actions">
+        <button (click)="editAnalysis(match)" class="btn-small btn-edit">✏️ Edytuj</button>
+        <button (click)="deleteAnalysis(match.id)" class="btn-small btn-delete">🗑️ Usuń</button>
+      </div>
+    </div>
+  </div>
+</section>

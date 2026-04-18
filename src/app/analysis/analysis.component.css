@@ -1,0 +1,238 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-box {
+  background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.stat-label {
+  color: #8b949e;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  color: #79c0ff;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.form-container {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #c9d1d9;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #c9d1d9;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.form-group textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.analysis-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #8b949e;
+}
+
+.analysis-card {
+  background: #161b22;
+  border: 2px solid #30363d;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+.analysis-card.win {
+  border-color: #238636;
+}
+
+.analysis-card.win::before {
+  content: '✓ WYGRANA';
+  display: block;
+  color: #238636;
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.analysis-card.loss {
+  border-color: #f85149;
+}
+
+.analysis-card.loss::before {
+  content: '✕ PRZEGRANA';
+  display: block;
+  color: #f85149;
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.analysis-card.draw {
+  border-color: #3b8bdb;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #30363d;
+}
+
+.match-info h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+  color: #79c0ff;
+}
+
+.date {
+  color: #8b949e;
+  font-size: 0.85rem;
+}
+
+.score {
+  font-size: 1.8rem;
+  font-weight: 700;
+  min-width: 80px;
+  text-align: center;
+}
+
+.score.win {
+  color: #238636;
+}
+
+.score.loss {
+  color: #f85149;
+}
+
+.score.draw {
+  color: #3b8bdb;
+}
+
+.map-badge {
+  display: inline-block;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #8b949e;
+  margin-bottom: 1rem;
+}
+
+.analysis-section {
+  margin-bottom: 0.75rem;
+}
+
+.analysis-section strong {
+  color: #79c0ff;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.analysis-section p {
+  margin: 0;
+  color: #c9d1d9;
+  line-height: 1.5;
+  padding-left: 0.5rem;
+  border-left: 2px solid #30363d;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #30363d;
+}
+
+.btn-small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background: #3b8bdb;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #5da0eb;
+}
+
+.btn-delete {
+  background: #f85149;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #fb6661;
+}

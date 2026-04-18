@@ -1,0 +1,12 @@
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #58a6ff 0%, #79c0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+nav a:last-child {
+  margin-right: 0;
+}
